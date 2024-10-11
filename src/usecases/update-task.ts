@@ -15,6 +15,10 @@ export class UpdateTaskUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
   async execute({ taskId, title, description }: UpdateTaskUseCaseRequest) {
+    if (!taskId) {
+      throw new Error("You need send task id.");
+    }
+
     const findById = await this.taskRepository.findById(taskId);
 
     if (!findById) {

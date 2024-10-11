@@ -8,6 +8,10 @@ export class DeleteTaskUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
   async execute({ taskId }: DeleteTaskUseCaseRequest): Promise<void> {
+    if (!taskId) {
+      throw new Error("You need send task id.");
+    }
+
     const findById = await this.taskRepository.findById(taskId);
 
     if (!findById) {
