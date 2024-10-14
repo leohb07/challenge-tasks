@@ -11,15 +11,31 @@ describe("Complete Task Use Case", () => {
   });
 
   it("should be able complete a task", async () => {
-    const task = await inMemoryTaskRepository.create({
+    const createdTask = await inMemoryTaskRepository.create({
       title: "Create a task for test",
       description: "This task is used to test",
     });
 
-    await sut.execute({ taskId: task._id! });
+    const taskId = createdTask._id as string;
 
-    const findAll = await inMemoryTaskRepository.findAll();
+    const { task } = await sut.execute({ taskId });
 
-    expect(findAll).toEqual([]);
+    expect(task.completed_at).toEqual(expect.any(Date));
+  });
+
+  it("should be able uncomplete a task", async () => {
+    const taskCreated = await inMemoryTaskRepository.create({
+      title: "Create a task for test",
+      description: "This task is used to test",
+    });
+
+    const taskId = taskCreated._id as string;
+
+    await sut.execute({ taskId });
+
+    const { task } = await sut.execute({ taskId });
+
+    expect(task._id).toEqual(expect.any(String));
+    expect(task.created_at).toBeUndefined();
   });
 });

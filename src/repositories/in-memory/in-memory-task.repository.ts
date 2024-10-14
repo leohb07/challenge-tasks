@@ -1,7 +1,6 @@
 import { randomUUID } from "crypto";
 import { Task } from "../../model/task";
 import { TaskRepository } from "../../model/task-repository";
-import { TaskStatusEnum } from "../../model/enum/task-status.enum";
 
 export class InMemoryTaskRepository implements TaskRepository {
   public tasksColletion: Task[] = [];
@@ -52,8 +51,10 @@ export class InMemoryTaskRepository implements TaskRepository {
     return this.tasksColletion;
   }
 
-  async findById(id: string): Promise<Task | undefined> {
+  async findById(id: string): Promise<Task | null> {
     const task = this.tasksColletion.find((item) => item._id === id);
+
+    if (!task) return null;
 
     return task;
   }
