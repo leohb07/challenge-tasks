@@ -3,8 +3,8 @@ import { TaskRepository } from "../model/task-repository";
 
 export interface UpdateTaskUseCaseRequest {
   taskId: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
 export interface UpdateTaskUseCaseResponse {
