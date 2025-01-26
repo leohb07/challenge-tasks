@@ -6,7 +6,7 @@ export const taskRoutes = Router();
 const taskController = new TaskController();
 
 taskRoutes.get("/tasks", taskController.findAll);
-taskRoutes.put("/tasks/:id", taskController.update);
-taskRoutes.post("/tasks", taskController.create);
-taskRoutes.delete("/tasks/:id", taskController.delete);
-taskRoutes.patch("/tasks/:id/complete", taskController.complete);
+taskRoutes.put("/task/:id", taskController.update);
+taskRoutes.post("/task", taskController.create);
+taskRoutes.delete("/task/:id", taskController.delete);
+taskRoutes.patch("/task/:id/complete", taskController.complete);
